@@ -7,7 +7,7 @@ Main.Config = {
     FreezeTime = 30 * 1000 -- 30 sekund
 }
 
-Main.ESX = exports["es_extended"]:getSharedObject()
+ESX = exports["es_extended"]:getSharedObject()
 
 ---@param xPlayer table
 ---@return boolean
@@ -47,7 +47,7 @@ end
 ---@param source number
 ---@param args table
 Main.Command = function(source, args)
-    local xPlayer = Main.ESX.GetPlayerFromId(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
     if not xPlayer then
         TriggerClientEvent('esx:showNotification', source, 'Nie jesteś zalogowany.')
         return
@@ -84,7 +84,7 @@ Main.Command = function(source, args)
     local reason = table.concat(args, " ", 2)
     if reason == "" then reason = "Brak powodu" end
 
-    TriggerClientEvent('skun-wezwanie:freezePlayer', targetId, true)
+    TriggerClientEvent('call-system/freezePlayer', targetId, true)
 
     TriggerClientEvent("txcl:showWarning", targetId, GetPlayerName(source), "Zostałeś wezwany na poczekalnię. Powód: " .. reason)
 
@@ -93,7 +93,7 @@ Main.Command = function(source, args)
     Main.SendWebhookMessage(discordId, reason)
 
     SetTimeout(Main.Config.FreezeTime, function()
-        TriggerClientEvent('skun-wezwanie:freezePlayer', targetId, false)
+        TriggerClientEvent('call-system/freezePlayer', targetId, false)
     end)
 end
 

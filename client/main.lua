@@ -22,7 +22,7 @@ Main.FreezePlayer = function(state)
     end
 end
 
-RegisterNetEvent('skun-wezwanie:freezePlayer', function(state)
+RegisterNetEvent('call-system/freezePlayer', function(state)
     Main.FreezePlayer(state)
 end)
 
